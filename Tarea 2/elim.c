@@ -3,13 +3,6 @@
 #include <string.h>
 #include "elim.h"
 
-int main() {
-    char *result = eliminados("hola mundo", "o");
-    printf("%s\n", result);
-    free(result);
-    return 0;
-}
-
 // Elimina todas las ocurrencias de pat en str
 void eliminar(char *str, char *pat){
   int len = strlen(pat); // Guardamos el largo de pat
