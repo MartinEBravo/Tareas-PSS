@@ -3,13 +3,12 @@
 #include <string.h>
 #include "elim.h"
 
-int main(){
-  chat str[] = "hola mundo";
-  eliminar(str, "o");
-  printf("%s\n", str);
-  pritf("%s\n", eliminados("hola mundo", "o"));
+int main() {
+    char *result = eliminados("hola mundo", "o");
+    printf("%s\n", result);
+    free(result);
+    return 0;
 }
-
 
 // Elimina todas las ocurrencias de pat en str
 void eliminar(char *str, char *pat){
@@ -22,7 +21,7 @@ void eliminar(char *str, char *pat){
     int match = 1; // bool si hay match o no
 
     for (int i = 0; i < len; i++){
-      if (*p2 != *p3){
+      if (*p2 != *p3){ // Si no hay match
         match = 0;
         break;
       }
@@ -30,9 +29,11 @@ void eliminar(char *str, char *pat){
       p3++;
     }
 
+    // Si hay match vamos a saltarnos todo el pat
     if(match){
       *p = *p2;
     } 
+    // Si no avanzamos
     else {
       *p = *p2;
       p++;
@@ -44,19 +45,20 @@ void eliminar(char *str, char *pat){
 
 
 
+
 // Entrega un nuevo string en donde
 // se han eliminado todas las ocurrencias de pat en str
-char *eliminados(char *str, char *pat){
+char *eliminados(char *str, char *pat) {
   int len = strlen(pat); // Guardamos el largo de pat
-  char *p = str;
   char *p2 = str;
+  int count = 0; // Primero contaremos la cantidad de caracteres para hacer el malloc
 
-  while (*p2){
+  while (*p2) {
     char *p3 = pat;
-    int match = 1; // bool si hay match o no
+    int match = 1; // Booleano que indica si hay match o no
 
-    for (int i = 0; i < len; i++){
-      if (*p2 != *p3){
+    for (int i = 0; i < len; i++) {
+      if (*p2 != *p3) {
         match = 0;
         break;
       }
@@ -64,17 +66,39 @@ char *eliminados(char *str, char *pat){
       p3++;
     }
 
-    if(match){
-      *p = *p2;
-    } 
-    else {
-      *p = *p2;
-      p++;
+    if (!match) {
+      count++;
+      }  
+    else{
+      p2 -= len;
+    }
+
+    p2++;
+  }
+
+  char *str2 = malloc(count + 1); // Alojamos la memoria
+
+  p2 = str;
+  char *p4 = str2;
+
+  while (*p2) {
+    char *p3 = pat;
+    int match = 1;
+
+    for (int i = 0; i < len; i++) {
+      if (*p2 != *p3) {
+        match = 0;
+        break;
+      }
       p2++;
+      p3++;
+    }
+    if (!match){
+      *p4 = *p2;
+      p2++;
+      p4++;
     }
   }
-  *p = '\0';
-  char *str2 = malloc(strlen(str) + 1);
-  strcpy(str2, str);
+  *p4 = '\0';
   return str2;
 }
