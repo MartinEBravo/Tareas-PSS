@@ -36,9 +36,6 @@ void eliminar(char *str, char *pat){
   *p = '\0';
 }
 
-
-
-
 // Entrega un nuevo string en donde
 // se han eliminado todas las ocurrencias de pat en str
 char *eliminados(char *str, char *pat) {
