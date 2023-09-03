@@ -3,6 +3,13 @@
 #include <string.h>
 #include "elim.h"
 
+int main(){
+  chat str[] = "hola mundo";
+  eliminar(str, "o");
+  printf("%s\n", str);
+  pritf("%s\n", eliminados("hola mundo", "o"));
+}
+
 
 // Elimina todas las ocurrencias de pat en str
 void eliminar(char *str, char *pat){
