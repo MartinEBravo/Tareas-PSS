@@ -92,6 +92,7 @@ char *eliminados(char *str, char *pat) {
     p4++;
     p5++;
   }
+  *p5 = '\0';
   return str2;
 }
 
