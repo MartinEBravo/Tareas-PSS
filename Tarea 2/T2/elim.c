@@ -127,4 +127,3 @@ char *eliminados(char *str, char *pat) {
 }
 
 
-
