@@ -17,7 +17,7 @@ void eliminar(char *str, char *pat){
     int match = 1; // bool si hay match o no
 
     for(int i = 0; i < len; i++){ // Recorremos el pat (puntero_pat) y vemos si hay match
-      if (*p2 != *puntero_pat){ // Si no hay match
+      if (*p2 != *puntero_pat || *p2 == '\0'){
         match = 0;
         break;
       }
@@ -36,6 +36,7 @@ void eliminar(char *str, char *pat){
       }
       p2 = p1;
       *p3 = '\0';
+      puntero_pat = pat;
     }
     // Si no hay match vamos a avanzar el puntero y reiniciar los punteros
     else{
@@ -58,7 +59,7 @@ char *eliminados(char *str, char *pat) {
     int match = 1; // bool si hay match o no
 
     for(int i = 0; i < len; i++){ // Recorremos el pat (puntero_pat) y vemos si hay match
-      if (*p2 != *puntero_pat){ // Si no hay match
+      if (*p2 != *puntero_pat || *p2 == '\0'){
         match = 0;
         break;
       }
@@ -69,6 +70,8 @@ char *eliminados(char *str, char *pat) {
     // Si hay match vamos a saltarnos todo el pat
     if (match) {
       p1 += len;
+      p2 = p1;
+      puntero_pat = pat;
     } 
     else {
       count++;
@@ -77,6 +80,7 @@ char *eliminados(char *str, char *pat) {
       puntero_pat = pat;
     }
   }
+  *p1 = '\0';
 
   char *str2 = malloc(count + 1); // Asigna memoria para la nueva cadena
   p1 = str;
@@ -90,21 +94,24 @@ char *eliminados(char *str, char *pat) {
     int match = 1;
 
     for(int i = 0; i < len; i++){
-      if (*p2 != *puntero_pat){
+      if (*p2 != *puntero_pat || *p2 == '\0'){
         match = 0;
         break;
       }
       p2++;
       puntero_pat++;
+
     }
 
     if(match){
       p1 += len;
+      p2 = p1;
+      puntero_pat = pat;
     }
     else{
       p2 = p1;
       p4 = p3;
-      while(*p2){
+      while(*p2 && *p2 != '\0'){
         *p4 = *p2;
         p2++;
         p4++;
