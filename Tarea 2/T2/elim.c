@@ -4,8 +4,6 @@
 
 #include "elim.h"
 
-void eliminar(char *str, char *pat);
-char *eliminados(char *str, char *pat);
 
 // Elimina todas las ocurrencias de pat en str
 void eliminar(char *str, char *pat){
@@ -36,13 +34,14 @@ void eliminar(char *str, char *pat){
         p3++;
         p2++;
       }
+      p2 = p1;
       *p3 = '\0';
     }
     // Si no hay match vamos a avanzar el puntero y reiniciar los punteros
     else{
-    p1++;
-    p2 = p1;
-    puntero_pat = pat;
+      p1++;
+      p2 = p1;
+      puntero_pat = pat;
     }
   }
   *p1 = '\0';
@@ -119,5 +118,6 @@ char *eliminados(char *str, char *pat) {
   *p3 = '\0';
   return str2;
 }
+
 
 
