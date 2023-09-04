@@ -50,7 +50,6 @@ char *eliminados(char *str, char *pat) {
   char *p2 = p1;
   char *p3 = p1;
   char *puntero_pat = pat;
-  int count = 0;
 
   while (*p2){
     int match = 1; // bool si hay match o no
