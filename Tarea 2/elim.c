@@ -1,33 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "elim.h"
 
-int main(){
-  // Tests
-  char str[] = "las palas la van la"; 
-  eliminar(str, "las");
-  printf("%s\n", str); // Retorna "pa la van la"
-  char *str2 = eliminados("las palas la van la", "las");
-  printf("%s\n", str2); // Retorna "pa la van la"
-}
+void eliminar(char *str, char *pat);
+char *eliminados(char *str, char *pat);
 
 // Elimina todas las ocurrencias de pat en str
 void eliminar(char *str, char *pat){
   int len = strlen(pat); // Guardamos el largo de pat
   char *p1 = str;
   char *p2 = p1;
+  char *p3 = p1;
   char *puntero_pat = pat;
 
   while (*p2){
-
-    // p2 y p3 seran punteros solo de comparacion (nos diran si hay match o no)
-
-
     int match = 1; // bool si hay match o no
 
-    while(*puntero_pat){
-    
+    for(int i = 0; i < len; i++){ // Recorremos el pat (puntero_pat) y vemos si hay match
       if (*p2 != *puntero_pat){ // Si no hay match
         match = 0;
         break;
@@ -36,11 +27,16 @@ void eliminar(char *str, char *pat){
       puntero_pat++;
     }
     
-
     // Si hay match vamos a saltarnos todo el pat
     if(match){
       p2 = p1 + len;
-      *p1 = *p2;
+      p3 = p1;
+      while(*p2){
+        *p3 = *p2;
+        p3++;
+        p2++;
+      }
+      *p3 = '\0';
     }
 
 
@@ -57,6 +53,7 @@ char *eliminados(char *str, char *pat) {
   int len = strlen(pat); // Guardamos el largo de pat
   char *p1 = str;
   char *p2 = p1;
+  char *p3 = p1;
   char *puntero_pat = pat;
   int count = 0; // Primero contaremos la cantidad de caracteres para hacer el malloc
 
