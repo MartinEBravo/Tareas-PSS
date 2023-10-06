@@ -1,0 +1,7 @@
+#include <stddef.h>
+
+#include "prev.h"
+
+void asignarPrev(Nodo *t, Nodo **pprev) {
+  ... resuelva aca la pregunta 3 ...
+}

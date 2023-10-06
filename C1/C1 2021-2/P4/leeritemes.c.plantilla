@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
+#include "item.h"
+
+Item **leerItemes(char *nomFile, int *pn) {
+  ... resuelva aca la pregunta 4 ...
+}
+

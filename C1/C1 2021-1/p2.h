@@ -1,0 +1,1 @@
+void espaciar(char *str);

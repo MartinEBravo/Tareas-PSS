@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#include "p5.h"
+
+... defina aca la estructura para los parametros del thread ...
+
+... defina aca la funcion que ejecuta el thread ...
+
+int buscarPar(Nodo *a, int z, int p) {
+  ... invoque buscar(...) para buscar secuencialmente ...
+}
+

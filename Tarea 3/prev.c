@@ -8,8 +8,8 @@ void asignarPrev(Nodo *t, Nodo **pprev) {
   if (t == NULL) 
     return;
   // Recorremos árbol izquierdo
-  if (t->izq != NULL) 
-    asignarPrev(t->izq, pprev);
+  if (t->izq != NULL)
+  asignarPrev(t->izq, pprev);
 
   // Asignamos previo y prox
   t->prox = NULL;
@@ -19,6 +19,6 @@ void asignarPrev(Nodo *t, Nodo **pprev) {
   *pprev = t;
 
   // Recorremos árbol derecho
-  if (t->der != NULL) 
-    asignarPrev(t->der, pprev);
+  if (t->der != NULL)
+  asignarPrev(t->der, pprev);
 }
