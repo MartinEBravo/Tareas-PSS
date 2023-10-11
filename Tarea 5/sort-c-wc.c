@@ -1,32 +1,44 @@
 #include <string.h>
 
-int strCmp(char *s1, char *s2) {
-    char c1;
-    char c2;
+int palabras(char *s){
+  char *p = s;
+  int count = 0;
+  while(*p){
+    // we are in a word
+    if (*p != ' ')
+      continue;
+    // first space after a word
+    if (*p == ' '){
+      count++;
+      while(*p && *p == ' ')
+        p++;
+    }   
+  }
+  return count;
+}
 
-    for (;;) {
-      c1= *s1;
-      c2= *s2;
-
-      if (c1==0)
-        break;
-
-      if (c1!=c2)
-        break;
-
-      s1++;
-      s2++;
-    }
-
-    return c1 - c2;
+int longer(int x, int y){
+  if (x < y)
+    return 1;
+  else if (x > y)
+    return -1;
+  else
+    return 0;
 }
 
 void sort(char **a, int n) {
   char **ult= &a[n-1];
   char **p= a;
   while (p<ult) {
+    // first word
+    char *p1 = p[0];
+    // second word
+    char *p2 = p[1];
 
-    int t1= strCmp(p[0], p[1]);
+    int wp1 = palabras(p1);
+    int wp2 = palabras(p2);
+
+    int t1 = longer(wp1, wp2);
 
     if (t1 <= 0)
       p++;
