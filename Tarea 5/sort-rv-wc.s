@@ -42,12 +42,71 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     # No puede hacer mas trabajo que la comparacion (no puede usar ret)
     lw      a0,0(t0)    #     int rc= strcmp(p[0], p[1]); // registro t1
     lw      a1,4(t0)
-    call    strcmp      #     // valor retornado queda en registro a0
-                        #     // p ya no esta en el registro t0
-    mv      t1,a0       #     // Dejar resultado de la comparacion en t1
+
+    # a0 = p[0]
+    # a1 = p[1]# 
 
     # En el registro t1 debe quedar la conclusion de la comparacion:
     # si t1<=0 p[0] y p[1] estan en orden y no se intercambiaran.
+
+    mv	a5,a0
+    li	a0,0
+    li	a3,32
+    j	.L40
+    .L30:
+        addi	a5,a5,1
+        lbu	a4,0(a5)
+        beq	a4,a3,.L30
+        bne	a4,zero,.L150
+    .L40:
+        lbu	a4,0(a5)
+        beq	a4,zero,.L10
+        beq	a4,a3,.L30
+        addi	a0,a0,1
+    .L70:
+        beq	a4,zero,.L40
+        addi	a5,a5,1
+        lbu	a4,0(a5)
+        bne	a4,a3,.L70
+        j	.L40
+    .L150:
+        addi	a0,a0,1
+        beq	a4,a3,.L40
+        j	.L70
+    .L10:
+        mv a6,a0 # guardamos wp1 en a6
+
+    mv	a5,a1
+    li	a0,0
+    li	a3,32
+    j	.L4
+    .L3:
+        addi	a5,a5,1
+        lbu	a4,0(a5)
+        beq	a4,a3,.L3
+        bne	a4,zero,.L15
+    .L4:
+        lbu	a4,0(a5)
+        beq	a4,zero,.L1
+        beq	a4,a3,.L3
+        addi	a0,a0,1
+    .L7:
+        beq	a4,zero,.L4
+        addi	a5,a5,1
+        lbu	a4,0(a5)
+        bne	a4,a3,.L7
+        j	.L4
+    .L15:
+        addi	a0,a0,1
+        beq	a4,a3,.L4
+        j	.L7
+    .L1:
+        mv a7,a0 # guardamos wp2 en a7
+
+    sub t1,a6,a7 # t1 = wp1 - wp2
+
+
+
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###

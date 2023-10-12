@@ -1,30 +1,20 @@
 #include <string.h>
 
-int palabras(char *s){
-  char *p = s;
+int palabras(char *s) {
   int count = 0;
-  while(*p){
-    // we are in a word
-    if (*p != ' ')
-      continue;
-    // first space after a word
-    if (*p == ' '){
+  while (*s) {
+    while (*s == ' ')
+      s++;
+    if (*s) {
       count++;
-      while(*p && *p == ' ')
-        p++;
-    }   
+      while (*s != ' ' && *s != 0)
+        s++;
+    }
   }
   return count;
 }
 
-int longer(int x, int y){
-  if (x < y)
-    return 1;
-  else if (x > y)
-    return -1;
-  else
-    return 0;
-}
+
 
 void sort(char **a, int n) {
   char **ult= &a[n-1];
@@ -38,10 +28,12 @@ void sort(char **a, int n) {
     int wp1 = palabras(p1);
     int wp2 = palabras(p2);
 
-    int t1 = longer(wp1, wp2);
+    int rc = wp1 - wp2;
 
-    if (t1 <= 0)
+    // Correct order or equal
+    if (rc <= 0)
       p++;
+    // Incorrect order, we have to swap
     else {
       char *tmp= p[0];
       p[0]= p[1];
