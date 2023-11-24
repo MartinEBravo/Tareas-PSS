@@ -33,6 +33,7 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   // Esto es para que cada proceso genere secuencias de numeros aleatorios
   // diferentes.
 
+<<<<<<< HEAD
   for (int i = 0;  i < p; i++){
     int fds[2];
     pipe(fds);
@@ -53,4 +54,44 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
       return hijo;
     }
   }
+=======
+  int pids[p];
+  int fds[p][2];
+
+  for (int i = 0; i < p; i++){
+
+    pipe(fds[i]);
+    pid_t child = fork();
+    srandom(getUSecsOfDay()*getpid());
+
+    if (child == 0){ // Hijo i-ésimo
+      close(fds[i][0]);
+      int z2[n+1];
+      double res = viajante(z2, n, m, nperm/p);
+      write(fds[i][1], &res, sizeof(double));
+      write(fds[i][1], z2, (n+1)*sizeof(int));
+      exit(0);
+    }
+    else{
+      close(fds[i][1]);
+      pids[i] = child;
+    }
+  }
+  double res = 0;
+  for (int i = 0; i < p; i++){
+    double res_hijo;
+    int z_hijo[n+1];
+    leer(fds[i][0], &res_hijo, sizeof(double));
+    leer(fds[i][0], z_hijo, (n+1)*sizeof(int));
+    close(fds[i][0]);
+    waitpid(pids[i], NULL, 0);
+    if (res_hijo < res || res == 0){
+      res = res_hijo;
+      for (int j = 0; j <= n; j++){
+        z[j] = z_hijo[j];
+      }
+    }
+  }
+  return res;
+>>>>>>> 800260e8f71f75a4c49b672bab279750d331056d
 }
